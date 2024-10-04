@@ -15,6 +15,14 @@ on:
 
 jobs:
   build:
+    permissions:
+      # Default permissions (matching what would be set if the permissions section was missing at all)
+      contents: read
+      packages: read
+
+      # Need to add these 2 for eslint-annotate-action
+      pull-requests: read
+      checks: write
     runs-on: ubuntu-latest
 
     steps:
@@ -30,7 +38,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Lint
-        run: pnpm run gh-lint || true
+        run: pnpm run gh-lint
+        continue-on-error: true
       - name: show errors
         run: cat lint_report.json
       - name: Annotate Code Linting Results
@@ -38,6 +47,7 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           report-json: "lint_report.json"
+          markdown-report-on-step-summary: true
       
       
       
