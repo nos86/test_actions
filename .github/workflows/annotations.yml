@@ -26,9 +26,11 @@ jobs:
         uses: pnpm/action-setup@v4.0.0
         with:
           version: 9
-      - uses: ldiego73/eslint-report-action@v1.1
+      - name: Lint
+        uses: Krizzu/eslint-check-action@v1.1.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          report: reports/lint.json
+          ghToken: ${{ secrets.GITHUB_TOKEN }}
+          eslintFiles: "lib, scripts"
+          eslintConfig: ".eslintrc.cjs"
       
       
