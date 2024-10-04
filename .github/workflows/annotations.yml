@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Lint
-        run: eslint . -c .eslintrc.cjs --ext .ts,.js,.cjs,.vue,.tsx,.jsx -o lint_report.json -f json || true
+        run: pnpm run gh-lint || true
       - name: show errors
         run: cat lint_report.json
       - name: Annotate Action
