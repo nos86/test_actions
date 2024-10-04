@@ -33,21 +33,11 @@ jobs:
         run: pnpm run gh-lint || true
       - name: show errors
         run: cat lint_report.json
-      - name: Annotate Action
-        # You may pin to the exact commit or the version.
-        # uses: yuzutech/annotations-action@0e061a6e3ac848299310b6429b60d67cafd4e7f8
-        uses: yuzutech/annotations-action@v0.5.0
+      - name: Annotate Code Linting Results
+        uses: ataylorme/eslint-annotate-action@v3
         with:
-          # Token used to interact with the GitHub API.
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          # Path to a JSON file which contains a list of annotations.
-          input: lint_report.json
-          # Title of the check
-          # title: # optional, default is check
-          # # Ignore errors when the provided repo-token does not have write permissions
-          # ignore-unauthorized-error: # optional, default is false
-          # # Ignore if the file which contains annotations is missing
-          # ignore-missing-file: # optional, default is true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          report-json: "lint_report.json"
       
       
       
