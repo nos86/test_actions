@@ -8,7 +8,8 @@
       "build": "vite build",
       "preview": "vite preview --port 5050",
       "typecheck": "vue-tsc --noEmit",
-      "lint": "eslint . -c .eslintrc.cjs --fix --rulesdir eslint-internal-rules/ --ext .ts,.js,.cjs,.vue,.tsx,.jsx"
+      "lint": "eslint . -c .eslintrc.cjs --fix --rulesdir eslint-internal-rules/ --ext .ts,.js,.cjs,.vue,.tsx,.jsx",
+      "gh-lint": "eslint . -c .eslintrc.cjs --ext .ts,.js,.cjs,.vue,.tsx,.jsx -o lint_report.json -f json || true"
     },
     "dependencies": {
       "@casl/ability": "6.7.1",

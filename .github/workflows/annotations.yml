@@ -1,0 +1,47 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    permissions:
+      # Default permissions (matching what would be set if the permissions section was missing at all)
+      contents: read
+      packages: read
+
+      # Need to add these 2 for eslint-annotate-action
+      pull-requests: read
+      checks: write
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4.0.0
+        with:
+          version: 9
+          run_install: false
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4.0.4
+      - name: Install dependencies
+        run: pnpm install
+      - name: Lint
+        run: pnpm run gh-lint
+        continue-on-error: true
+      - name: show errors
+        run: cat lint_report.json
+      - name: Annotate Code Linting Results
+        uses: ataylorme/eslint-annotate-action@v3
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          report-json: "lint_report.json"
+          markdown-report-on-step-summary: true
+      
+      
+      
