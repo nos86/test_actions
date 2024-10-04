@@ -13,30 +13,20 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
       - name: Setup Node.js environment
         uses: actions/setup-node@v4.0.4
       - name: Setup pnpm
-        # You may pin to the exact commit or the version.
-        # uses: pnpm/action-setup@fe02b34f77f8bc703788d5817da081398fad5dd2
         uses: pnpm/action-setup@v4.0.0
         with:
           version: 9
       - name: pnpm tasks
-        # You may pin to the exact commit or the version.
-        # uses: theoparis/pnpm-action@237907c3e105c32223d6cd2d4fcb211060f3d2d2
         uses: theoparis/pnpm-action@v2.1.1-alpha
       - name: Eslint Annotate
-        # You may pin to the exact commit or the version.
-        # uses: a-b-r-o-w-n/eslint-action@22881bb65016a04d98ce36ef8c2118d5d1e73b30
         uses: a-b-r-o-w-n/eslint-action@v2.2.0
